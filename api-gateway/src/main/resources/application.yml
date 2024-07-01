@@ -12,7 +12,7 @@ spring:
         - id: CITIZEN-SERVICE
           uri:
             lb: //CITIZEN-SERVICE  # this is the load balanced url which is going to navigate through eureka
-          predicates:
+          predicates: # this returns a boolean value. it returns true if url matches the path. Then it routes to the given load balancer
           - Path=/citizen/**
 
         - id: VACCINATION_CENTER-SERVICE
