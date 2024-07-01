@@ -1,0 +1,22 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: API_GATEWAY
+
+#  Below is how we can implement routes in our api gateway
+  cloud:
+    gateway:
+      routes:
+        - id: CITIZEN-SERVICE
+          uri:
+            lb: //CITIZEN-SERVICE  # this is the load balanced url which is going to navigate through eureka
+          predicates:
+          - Path=/citizen/**
+
+        - id: VACCINATION_CENTER-SERVICE
+          uri:
+            lb: //VACCINATION_CENTER-SERVICE  # this is the load balanced url which is going to navigate through eureka
+          predicates:
+          - Path=/vaccinationcenter/**   #send any url which matches this pattern
