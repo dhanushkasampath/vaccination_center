@@ -31,8 +31,13 @@ public class VaccinationCenterServiceImpl implements VaccinationCenterService {
             .orElse(null);
     }
 
+    /**
+     * This is the beauty of eureka. we dont want to hard code the ip port here.
+     * 'CITIZEN-SERVICE' <- this name is in eureka server
+     */
     @Override
     public List<Citizen> getCitizens(Integer id) {
-        return restTemplate.getForObject("http://localhost:8081/citizen/id/" + id, List.class);
+        return restTemplate.getForObject("http://CITIZEN-SERVICE/citizen/id/" + id, List.class);
+//        return restTemplate.getForObject("http://localhost:8081/citizen/id/" + id, List.class);
     }
 }
