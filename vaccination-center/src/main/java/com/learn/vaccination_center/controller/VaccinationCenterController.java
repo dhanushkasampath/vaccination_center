@@ -42,6 +42,7 @@ public class VaccinationCenterController {
         VaccinationCenter vaccinationCenter = vaccinationCenterService.findById(id);
         requiredResponse.setCenter(vaccinationCenter);
 
+        //if citizen service is down user should be able to get at least vaccination center details. That is done by resilience4J or hystrix
         List<Citizen> citizenList = vaccinationCenterService.getCitizens(id);
         requiredResponse.setCitizens(citizenList);
         return new ResponseEntity<>(requiredResponse, HttpStatus.OK);
