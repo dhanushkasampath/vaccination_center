@@ -1,14 +1,14 @@
 package com.learn.vaccination_center.controller;
 
 import com.learn.vaccination_center.entity.VaccinationCenter;
-import com.learn.vaccination_center.repository.CenterRepo;
+import com.learn.vaccination_center.model.Citizen;
+import com.learn.vaccination_center.model.RequiredResponse;
 import com.learn.vaccination_center.service.VaccinationCenterService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/vaccinationcenter")
@@ -29,5 +29,21 @@ public class VaccinationCenterController {
     public ResponseEntity<VaccinationCenter> addCenter(@RequestBody VaccinationCenter newVaccinationCenter){
         VaccinationCenter vaccinationCenter = vaccinationCenterService.addVaccinationCenter(newVaccinationCenter);
         return new ResponseEntity<>(vaccinationCenter, HttpStatus.OK);
+    }
+
+    /**
+     * @Desc This endpoint should add vaccination center to db
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/id/{id}")
+    public ResponseEntity<RequiredResponse> getVaccinationCenter(@PathVariable Integer id){
+        RequiredResponse requiredResponse = new RequiredResponse();
+        VaccinationCenter vaccinationCenter = vaccinationCenterService.findById(id);
+        requiredResponse.setCenter(vaccinationCenter);
+
+        List<Citizen> citizenList = vaccinationCenterService.getCitizens(id);
+        requiredResponse.setCitizens(citizenList);
+        return new ResponseEntity<>(requiredResponse, HttpStatus.OK);
     }
 }
