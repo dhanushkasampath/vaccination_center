@@ -14,4 +14,4 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
 
   application:
-    name: VACCINATION_CENTER-SERVICE
+    name: VACCINATION-CENTER-SERVICE
