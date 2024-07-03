@@ -4,9 +4,11 @@ import com.learn.vaccination_center.entity.VaccinationCenter;
 import com.learn.vaccination_center.model.Citizen;
 import com.learn.vaccination_center.repository.CenterRepo;
 import com.learn.vaccination_center.service.VaccinationCenterService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,8 +38,13 @@ public class VaccinationCenterServiceImpl implements VaccinationCenterService {
      * 'CITIZEN-SERVICE' <- this name is in eureka server
      */
     @Override
+    @CircuitBreaker(name = "vaccination-center-service", fallbackMethod = "myFallBackMethod")
     public List<Citizen> getCitizens(Integer id) {
         return restTemplate.getForObject("http://CITIZEN-SERVICE/citizen/id/" + id, List.class);
 //        return restTemplate.getForObject("http://localhost:8081/citizen/id/" + id, List.class);
+    }
+
+    public List<Citizen> myFallBackMethod(Exception e){
+        return new ArrayList<>();
     }
 }

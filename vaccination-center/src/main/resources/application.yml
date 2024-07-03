@@ -15,3 +15,31 @@ spring:
 
   application:
     name: VACCINATION-CENTER-SERVICE
+
+# Below are actuator configurations
+management:
+  health:
+    circuit breakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health #to get all we can use *
+  endpoint:
+    health:
+      show-details: always # we get more data in this endpoint (http://localhost:8080/actuator/health) other than status up, due to this property
+
+# Below are resilience4j configurations
+resilience4j:
+  circuitbreaker:
+    instances:
+      serviceA: #the name we defined as our circuit breaker
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50  #at 50% circuit breaker will change the status
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s  # In production waiting time should be very low in nano and micro second level
+        permittedNumberOfCallsInHalfOpenState: 3 #just to check our application is up or not
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
