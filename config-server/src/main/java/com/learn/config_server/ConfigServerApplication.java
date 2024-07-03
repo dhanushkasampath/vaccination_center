@@ -13,3 +13,8 @@ public class ConfigServerApplication {
 	}
 
 }
+
+// Below are two endpoints which will give details
+// http://localhost:8888/actuator/default
+// http://localhost:8888/actuator/health
+// After adding above annotation and application.yml file config server is ready
