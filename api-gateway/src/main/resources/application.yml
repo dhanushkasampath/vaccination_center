@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: API_GATEWAY
+    name: API-GATEWAY
 
 #  Below is how we can implement routes in our api gateway
   cloud:

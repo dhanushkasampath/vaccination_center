@@ -62,10 +62,9 @@
 
 		<!--	Below are the dependencies needed for circuit breaker. When making a remote call from this service to
 citizen-service it may down or slow response time. In such case request came to this vaccination-center-service should not
-get blocked or return internal server error. Instead It should return a success response with available data it has -->
+get blocked or return internal server error. Instead, It should return a success response with available data it has -->
 
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-circuitbreaker-resilience4j -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
@@ -79,7 +78,6 @@ get blocked or return internal server error. Instead It should return a success 
 			<version>3.3.1</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
