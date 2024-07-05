@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/vaccinationcenter")
@@ -47,13 +48,13 @@ public class VaccinationCenterController {
      * @return
      */
     @GetMapping(path = "/id/{id}")
-    public ResponseEntity<RequiredResponse> getVaccinationCenter(@PathVariable Integer id){
+    public ResponseEntity<RequiredResponse> getVaccinationCenter(@PathVariable Integer id) throws ExecutionException, InterruptedException {
         RequiredResponse requiredResponse = new RequiredResponse();
         VaccinationCenter vaccinationCenter = vaccinationCenterService.findById(id);
         requiredResponse.setCenter(vaccinationCenter);
 
         //if citizen service is down user should be able to get at least vaccination center details. That is done by resilience4J or hystrix
-        List<Citizen> citizenList = vaccinationCenterService.getCitizens(id);
+        List<Citizen> citizenList = vaccinationCenterService.getCitizens(id).get();
         requiredResponse.setCitizens(citizenList);
         return new ResponseEntity<>(requiredResponse, HttpStatus.OK);
     }

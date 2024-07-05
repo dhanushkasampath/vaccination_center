@@ -29,7 +29,8 @@ public class CitizenController {
      * @return
      */
     @GetMapping(path = "/id/{id}")
-    public ResponseEntity<List<Citizen>> getById(@PathVariable Integer id){
+    public ResponseEntity<List<Citizen>> getById(@PathVariable Integer id) throws InterruptedException {
+//        Thread.sleep(5000);
         List<Citizen> citizenList = citizenService.findByVaccinationCenterId(id);
         return new ResponseEntity<>(citizenList, HttpStatus.OK);
     }

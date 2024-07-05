@@ -35,6 +35,10 @@ management:
 
 # Below are resilience4j configurations
 resilience4j:
+  timelimiter:
+    instances:
+      vaccination-center-service:
+        timeoutDuration: 2s
   circuitbreaker:
     instances:
       vaccination-center-service: #the name we defined as our circuit breaker
