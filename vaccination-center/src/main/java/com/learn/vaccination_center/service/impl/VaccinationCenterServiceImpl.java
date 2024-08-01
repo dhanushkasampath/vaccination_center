@@ -46,7 +46,7 @@ public class VaccinationCenterServiceImpl implements VaccinationCenterService {
 //        return restTemplate.getForObject("http://CITIZEN-SERVICE/citizen/id/" + id, List.class);
 //        return restTemplate.getForObject("http://localhost:8081/citizen/id/" + id, List.class);
 
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {// completableFuture has used due to the need of using @TimeLimiter
             return restTemplate.getForObject("http://CITIZEN-SERVICE/citizen/id/" + id, List.class);
         });
 
